@@ -30,7 +30,7 @@ header {
   border-bottom: 1px solid #121212;
   border-width: 4px;
 
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   text-shadow: rgba(0,0,0,0.75) 0 1px;
 }
 
@@ -54,6 +54,16 @@ header {
   min-width: 2em;
 }
 
+.dialogBox{
+  background-color: #333;
+  color: #c6c6c6;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  height: 70px;
+  width: 95%;
+  resize: none;
+}
+
 .header-gist-name.dirty::after {
   content: " •";
 }
@@ -72,7 +82,7 @@ header {
 }*/
 
 section {
-  padding: 0 24px 24px 24px;
+  padding: 0 24px 0px 24px;
   position: relative;
 
   box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
@@ -115,13 +125,12 @@ a:hover {
 }
 
 a[selected] {
-  color: #66d9ef;
+  color: #cfcfcf;
   cursor: default;
-  border-bottom: 2px solid #66d9ef;
 }
 
 a[selected]:hover {
-  color: #66d9ef;
+  color: #cfcfcf;
 }
 
 .header li {
@@ -148,7 +157,7 @@ a[selected]:hover {
 
 .header {
   line-height: 24px;
-  font-size: 12pt;
+  font-size: 10pt;
 }
 
 .header.small {
@@ -178,6 +187,17 @@ a[selected]:hover {
 
 #runbutton {
   padding-right: 11px;
+  line-height: 0px;
+  height: 20px;
+  width: 30px;
+}
+
+#dartclear {
+  display: none;
+}
+
+section {
+  min-height: 150px;
 }
 
 #frame {
@@ -249,6 +269,10 @@ div.toggle {
   color: #F7977A;
 }
 
+#output {
+  margin-top: 5px;
+}
+
 #editpanel {
   font-family: 'Inconsolata', monospace;
   font-size: 12pt;
@@ -256,7 +280,7 @@ div.toggle {
   display: block;
   position: relative;
   min-height: 50px;
-  margin-top: 16px;
+  margin-top: 0px;
   margin-left: -3px;
 }
 
@@ -310,6 +334,10 @@ div.toggle {
   color: #eee;
 }
 
+#bottomHalf {
+  height: 100px;
+}
+
 #documentation h2,
 #documentation strong {
   font-weight: bold;
@@ -318,20 +346,20 @@ div.toggle {
 }
 
 #documentation a {
-  color: #66d9ef;
+  color: #cfcfcf;
 }
 
 #documentation a:hover {
-  color: #66d9ef;
+  color: #cfcfcf;
   text-decoration: underline;
 }
 
 #documentation a {
-  color: #66d9ef;
+  color: #cfcfcf;
 }
 
 #documentation a:hover {
-  color: #66d9ef;
+  color: #cfcfcf;
   text-decoration: underline;
 }
 

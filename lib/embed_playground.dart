@@ -79,7 +79,7 @@ class Playground implements GistContainer, GistController {
   Playground() {
 
     TabController controller = new TabController();
-    for (String name in ['dart', 'html', 'css']) {
+    for (String name in ['dart']) {
       controller.registerTab(new TabElement(querySelector('#${name}tab'), name: name,
         onSelect: () {
           Element issuesElement = querySelector('#issues');
@@ -101,7 +101,7 @@ class Playground implements GistContainer, GistController {
     runButton = new DButton(querySelector('#runbutton'));
     runButton.onClick.listen((e) {
       _handleRun();
-
+      _clearConsole();
       // On a mobile device, focusing the editing area causes the keyboard to
       // pop up when the user hits the run button.
       if (!isMobile()) _context.focus();
@@ -128,6 +128,10 @@ class Playground implements GistContainer, GistController {
     });
   }
 
+  void _clearConsole() {
+    querySelector("#consoleclear").style.display = 'none';
+  }
+  
   void showHome(RouteEnterEvent event) {
     // Don't auto-run if we're re-loading some unsaved edits; the gist might
     // have halting issues (#384).
@@ -188,24 +192,26 @@ class Playground implements GistContainer, GistController {
     return new Future.value();
   }
 
-  Future shareAnon() {
-    return _createSummary().then((String summary) {
-      return gistLoader.createAnon(mutableGist.createGist(summary: summary));
-    }).then((Gist newGist) {
-      editableGist.setBackingGist(newGist);
-      overrideNextRoute(newGist);
-      router.go('gist', {'gist': newGist.id});
-      var toast = new DToast('Created ${newGist.id}')..show()..hide();
-      toast.element
-        ..style.cursor = "pointer"
-        ..onClick.listen((e)
-            => window.open("https://gist.github.com/anonymous/${newGist.id}", '_blank'));
-    }).catchError((e) {
-      String message = 'Error saving gist: ${e}';
-      DToast.showMessage(message);
-      ga.sendException('GistLoader.createAnon: failed to create gist');
-    });
-  }
+  Future shareAnon({String summary: ""}) {
+      return gistLoader
+          .createAnon(mutableGist.createGist(summary: summary))
+          .then((Gist newGist) {
+        editableGist.setBackingGist(newGist);
+        overrideNextRoute(newGist);
+        router.go('gist', {'gist': newGist.id});
+        var toast = new DToast('Created ${newGist.id}')
+          ..show()
+          ..hide();
+        toast.element
+          ..style.cursor = "pointer"
+          ..onClick.listen((e) => window.open(
+              "https://gist.github.com/anonymous/${newGist.id}", '_blank'));
+      }).catchError((e) {
+        String message = 'Error saving gist: ${e}';
+        DToast.showMessage(message);
+        ga.sendException('GistLoader.createAnon: failed to create gist');
+      });
+    }
 
   void _showGist(String gistId) {
     // Don't auto-run if we're re-loading some unsaved edits; the gist might
@@ -280,15 +286,6 @@ class Playground implements GistContainer, GistController {
      editorSplitter.position = state['editor_split'];
     }
 
-    DSplitter outputSplitter = new DSplitter(querySelector('#output_split'),
-        onDragStart: disablePointerEvents, onDragEnd: enablePointerEvents);
-    outputSplitter.onPositionChanged.listen((pos) {
-      state['output_split'] = pos;
-    });
-    if (state['output_split'] != null) {
-      outputSplitter.position = state['output_split'];
-    }
-
     // Set up the iframe.
     deps[ExecutionService] = new ExecutionServiceIFrame(_frame);
     executionService.onStdout.listen(_showOuput);
@@ -338,13 +335,6 @@ class Playground implements GistContainer, GistController {
     });
 
     outputTabController = new TabController()
-      ..registerTab(new TabElement(querySelector('#resulttab'), name: "result",
-        onSelect: () {
-          ga.sendEvent('view', "result");
-          querySelector('#frame').style.display = "block";
-          querySelector('#output').style.display = "none";
-        })
-      )
       ..registerTab(new TabElement(querySelector('#consoletab'), name: "console",
         onSelect: () {
           ga.sendEvent('view', "console");
