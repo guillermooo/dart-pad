@@ -196,7 +196,7 @@ a[selected]:hover {
   width: 30px;
 }
 
-#dartclear {
+.dartclear {
   display: none;
 }
 
@@ -206,7 +206,6 @@ section {
 
 #frame {
   min-height: 50px;
-  display: none;
   margin-top: 10px;
 }
 

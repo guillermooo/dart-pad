@@ -14,7 +14,7 @@
     <title>DartPad</title>
 
     <link href="layout.css" rel="stylesheet" media="screen">
-    <link href="embed.css" rel="stylesheet" media="screen">
+    <link href="embed2.css" rel="stylesheet" media="screen">
     <link href="packages/dart_pad/elements/embed_elements.css" rel="stylesheet" media="screen">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto'
@@ -38,9 +38,10 @@
       <div class="splash"></div>
 
       <div class="view" flex three layout vertical>
-        <div class="header" style ="display: none" layout horizontal wrap>
-          <li><a id="darttab" selected class="arrow_box" style = "display: none"><span>Dart</span></a></li>
-          <div flex></div>
+        <div class="header" layout horizontal wrap>
+          <li><a id="darttab" selected class="arrow_box"><span>Dart</span></a></li>
+          <li><a id="htmltab"><span>HTML</span></a></li>
+          <li><a id="csstab"><span>CSS</span></a></li><div flex></div>
           <div id="dartbusy" class="busylight"></div>
         </div>
         <div id="editpanel" flex layout vertical>
@@ -62,10 +63,10 @@
                 Run
         </button>
         <div class="view" flex layout vertical>
-          <div id="documentation" flex layout vertical></div>
+          <iframe id="frame" sandbox="allow-scripts" flex src="frame.html">
+          </iframe>
         </div>
         <div id="frame_overlay"></div>
-        
       <div id="keyboard-button" class="keyboard"></div>
         <div id="issues"></div>
       </div>
@@ -83,14 +84,12 @@
         <div id="output" class="console" flex></div>
         <!-- TODO: We might want to embed the iframe into a div, and set -->
         <!-- div to overflow: scroll. -->
-        <iframe id="frame" class = "dartclear" sandbox="allow-scripts" flex src="frame.html">
-        </iframe>
       </div>
       </div>
     </section>
 
     <script src="packages/codemirror/codemirror.js"></script>
-    <script type="application/dart" src="embed.dart" async></script>
+    <script type="application/dart" src="embed2.dart" async></script>
     <script async>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
