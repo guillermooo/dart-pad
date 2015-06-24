@@ -24,7 +24,7 @@ class MainHandler(webapp2.RequestHandler):
         
         # If it is a request for an export pad, serve back a new pad with given data
         if path.endswith('newpad'):
-            _serve(self.response, "newpad?{0}".format(parsedURL.query))
+            _serve(self.response, 'newpad', parsedURL.query)
             return
 
         if os.path.isfile(path):
@@ -37,7 +37,7 @@ class MainHandler(webapp2.RequestHandler):
             if newPath == '':
                 _serve(self.response, mainPage)
             else:
-                _serve(self.response, newPath)
+                _serve(self.response, newPath, parsedURL.query)
             return
 
         # If it is a request for a TLD psuedo-item, serve back the main page
@@ -71,17 +71,32 @@ def isDevelopment():
 
 
 # Serve the files.
-def _serve(resp, path):
+def _serve(resp, path, query=''):
+    print('path is '+path)
     if path.startswith('newpad'):
-        queryFields = path.split('=')
+        queryFields = query.split('=')
         dart = queryFields[1].rstrip('html')[:-1]
         html = queryFields[2].rstrip('css')[:-1]
         css = queryFields[3]
         c = open('index.html', 'r').read()
         c = c + "<div id='dart-code'>{0}</div><div id='html-code'>{1}</div><div id='css-code'>{2}</div>".format(dart, html, css)
         resp.write(c)
+        resp.content_type = 'text/html'
         return
         
+    if path.startswith('embed-'):
+        queryFields = query.split('style=')
+        if queryField.length > 1:
+            s = queryFields[1]
+            c = open('index.html', 'r').read()
+            if s == 'dark':
+                c += "<link rel="stylesheet" href='embed_dark.css'>"
+            elif s == 'light':
+                c += "<link rel="stylesheet" href='embed_light.css'>"
+            resp.write(c)
+            resp.content_type = 'text/html'
+            return
+           
     if not os.path.isfile(path):
         resp.status = 404
         resp.write("<html><h1>404: Not found</h1></html>")
