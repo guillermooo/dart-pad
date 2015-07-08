@@ -20,6 +20,7 @@
     --paper-tabs-selection-bar-color: var(--light-primary-color);
     --paper-tab-ink: var(--light-primary-color);
     --paper-fab-background: var(--accent-color);
+    --paper-fab-keyboard-focus-background: var(--accent-color);
     --paper-toggle-button-checked-bar-color:  var(--accent-color);
     --paper-toggle-button-checked-button-color:  var(--accent-color);
     --paper-toggle-button-checked-ink-color: var(--accent-color);
@@ -27,15 +28,27 @@
     --paper-toggle-button-unchecked-button-color: var(--text-primary-color);
     --paper-toggle-button-unchecked-ink-color: var(--text-primary-color);
   }
-
+  
+  paper-tabs {
+    top: inherit;
+  }
+  
+  paper-progress {
+    top: inherit;
+  }
+  
   #nav-header {
     padding: 0 16px;
+  }
+  
+  #menu-toolbar {
+    height: 90px;
   }
   
   .sample-titles {
     padding-left: 8px;
   }
-  
+
   .splash {
     background: #333;
     pointer-events: none;
@@ -80,7 +93,7 @@
     padding: 0;
     margin: 0;
   }
-  
+
   animated-dropdown paper-menu {
     padding: 0;
     margin: 0;
@@ -107,7 +120,6 @@
   }
 
   paper-toolbar /deep/ .toolbar-tools {
-    padding: 0;
   }
 
   a:visited, a:link {
@@ -130,10 +142,12 @@
     z-index: 10;
   }
 
-  .accented-button {
-    color: #607D8B;
-    /*border-radius: 50%;
-    background-color: #333;*/
+  div[title] {
+    font-weight: 500;
+  }
+
+  #back-button {
+    margin-right: 24px;
   }
 
   paper-item {
@@ -156,14 +170,6 @@
     background: var(--primary-background-color);
   }
 
-  /*
-   * Workaround for https://github.com/dart-lang/dart-pad/issues/117
-   * https://github.com/Polymer/polymer/issues/1123
-   * http://stackoverflow.com/questions/25824061/core-drawer-panel-vs-paper-fab-z-index
-   */
-  paper-header-panel[drawer] { z-index: 9999; }
-  paper-header-panel[main] { z-index: 0; }
-
   .light-background {
     background-color: #92989b;
   }
@@ -178,6 +184,12 @@
 
   #frameContainer {
     overflow: auto;
+    height: 10px;
+    padding: 8px;
+  }
+
+  paper-item {
+    cursor: pointer;
   }
 
   paper-dialog, #console {
@@ -193,9 +205,8 @@
     font-family: 'Inconsolata', monospace;
     font-size: 12pt;
     line-height: 20px;
-    min-height: 50px;
+    height: 10px;
     overflow-y: auto;
-    margin: 2px;
     padding: 8px;
     white-space: pre-wrap;
     background-color: var(--secondary-text-color);
