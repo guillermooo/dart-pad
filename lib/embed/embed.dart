@@ -271,23 +271,12 @@ class PlaygroundMobile {
   }
 
   void _export() {
-    HttpRequest request = new HttpRequest();
-    
-    // add an event handler that is called when the request finishes
-    request.onReadyStateChange.listen((_) {
-      if (request.readyState == HttpRequest.DONE &&
-          (request.status == 200 || request.status == 0)) {
-        print(request.responseText); // output the response from the server
-        window.open(request.responseUrl, "Export");
-      }
-    });
-
     // POST the data to the server
     var url = "/export";
-    request.open("POST", url, async: false);
-    String jsonData = '{"dart":"${context.dartSource}", "html":,"${context.htmlSource}", "css":"${context.cssSource}"}'; // Data conten
-    //String jsonData = Uri.encodeFull('dart=hello');
-    request.send(jsonData); // perform the async POST
+    var data = {'dart' : '${context.dartSource}', 'html' : '${context.htmlSource}', 'css' : '${context.cssSource}'};
+    HttpRequest.postFormData(url, data).then((HttpRequest resp) {
+      window.open('/${resp.responseText}', "Export");
+    });
   }
   
   void _reset() {
