@@ -89,6 +89,7 @@ class PlaygroundMobile {
       _createUi();
     });
     Timer.run(() {
+      print('initing modules');
       _initModules().then((_) => _initPlayground());
     });
   }
@@ -260,6 +261,7 @@ class PlaygroundMobile {
   }
 
   void _createUi() {
+    print('Creating ui');
     registerMessageToast();
     registerErrorToast();
     registerResetToast();
@@ -277,8 +279,9 @@ class PlaygroundMobile {
     registerCancelExportButton();
     registerAffirmExportButton();
     registerConsole();
-
+    
     _clearOutput();
+    print('Finishing ui');
   }
 
   void _export() {
@@ -367,6 +370,7 @@ class PlaygroundMobile {
 
   void _initPlayground() {
     // Set up the iframe execution.
+    print('initing playground');
     registerExecutionService();
     executionService.onStdout.listen(_showOutput);
     executionService.onStderr.listen((m) => _showOutput(m, error: true));
@@ -479,6 +483,7 @@ class PlaygroundMobile {
   }
 
   _finishedInit() {
+    print('finished init');
     Timer.run(() {
       editor.resize();
     });

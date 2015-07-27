@@ -40,7 +40,7 @@ build() {
   // Copy our third party python code into web/.
   new FilePath('third_party/mdetect/mdetect.py').copy(_webDir);
 
-  Pub.build(directories: ['web', 'test']);
+  Pub.build(directories: ['web', 'test'], mode: 'debug');
 
   FilePath mainFile = _buildDir.join('web', 'main.dart.js');
   log('${mainFile} compiled to ${_printSize(mainFile)}');
@@ -62,10 +62,10 @@ build() {
   run('cp', arguments: ['-R', '-L', 'packages', 'build/web/packages']);
 
   // Run vulcanize.
-  vulcanize('mobile.html');
+  /*vulcanize('mobile.html');
   vulcanize('embed-dart.html');
   vulcanize('embed-html.html');
-  vulcanize('embed-inline.html');
+  vulcanize('embed-inline.html');*/
 
   // TODO: vulcanize the embedding html files
 
@@ -81,14 +81,14 @@ vulcanize(String filepath) {
     '--strip-comments',
     '--inline-css',
     '--inline-scripts',
-    '--exclude',
+    /*'--exclude',
     'mobile.dart.js',
     '--exclude',
     'embed.dart.js',
     '--exclude',
     'main.dart.js',
     '--exclude',
-    'packages/codemirror/codemirror.js',
+    'packages/codemirror/codemirror.js',*/
     filepath
   ], workingDirectory: 'build/web');
   if (result.exitCode != 0) {
