@@ -62,10 +62,11 @@ build() {
   run('cp', arguments: ['-R', '-L', 'packages', 'build/web/packages']);
 
   // Run vulcanize.
-  vulcanize('mobile.html');
-  vulcanize('embed-dart.html');
+  /*vulcanize('mobile.html');
+  vulcanize('embed-dart.html');*/
   vulcanize('embed-html.html');
-  vulcanize('embed-inline.html');
+  vulcanize('embed_components.html');
+  //vulcanize('embed-inline.html');
 
   // TODO: vulcanize the embedding html files
 
@@ -89,6 +90,14 @@ vulcanize(String filepath) {
     'main.dart.js',
     '--exclude',
     'packages/codemirror/codemirror.js',
+    '--exclude',
+    'embed_components.html',
+    '--exclude',
+    'imports.html',
+    '--exclude',
+    'animated_dropdown.html',
+    '--exclude',
+    'packages/dart_pad/bower/webcomponentsjs/webcomponents-lite.min.js',
     filepath
   ], workingDirectory: 'build/web');
   if (result.exitCode != 0) {
