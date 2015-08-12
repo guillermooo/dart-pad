@@ -62,6 +62,7 @@ build() {
   run('cp', arguments: ['-R', '-L', 'packages', 'build/web/packages']);
 
   // Run vulcanize.
+  vulcanizeHard('imports.html');
   vulcanize('mobile.html');
   vulcanize('embed-dart.html');
   vulcanize('embed-html.html');
@@ -89,6 +90,10 @@ vulcanize(String filepath) {
     'main.dart.js',
     '--exclude',
     'packages/codemirror/codemirror.js',
+    '--exclude',
+    'animated-dropdown.html',
+    '--exclude',
+    'embed_components.html',
     filepath
   ], workingDirectory: 'build/web');
   if (result.exitCode != 0) {
@@ -106,14 +111,6 @@ vulcanizeHard(String filepath) {
     '--strip-comments',
     '--inline-css',
     '--inline-scripts',
-    '--exclude',
-    'mobile.dart.js',
-    '--exclude',
-    'embed.dart.js',
-    '--exclude',
-    'main.dart.js',
-    '--exclude',
-    'packages/codemirror/codemirror.js',
     filepath
   ], workingDirectory: 'build/web');
   if (result.exitCode != 0) {
