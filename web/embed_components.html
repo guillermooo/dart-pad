@@ -4,6 +4,55 @@
 
 <link rel="import" href="imports.html"/>
 
+<dom-module id="menu-bar-icons">
+  <style>
+    :host {
+      height: 36px;
+    }
+
+    .tabs {
+      background: #485D67;
+      top: inherit;
+    }
+
+    paper-tabs {
+      width: 100%;
+      height: 36px;
+      font-weight: 400;
+    }
+
+    #edit-progress {
+      top: inherit;
+    }
+  </style>
+  <template>
+    <div class="layout horizontal flex">
+      <div id="toolbarLeftPanel" class="layout horizontal ">
+        <paper-tabs id="selector-tabs" class ="tabs relative flex" selected="0">
+          <paper-tab name="dart">Dart</paper-tab>
+          <paper-tab name="html">HTML</paper-tab>
+          <paper-tab name="css">CSS</paper-tab>
+        </paper-tabs>
+        <paper-progress id="edit-progress"  class="bottom fit" hidden></paper-progress>
+      </div>
+      <div id="toolbarRightPanel" class="layout horizontal flex">
+        <paper-tabs selected="0" class="tabs flex">
+          <span class="flex"></span>
+          <div class="center-center horizontal layout">HTML Output</div>
+          <span class="flex"></span>
+          <paper-icon-button id="refresh" icon="refresh"></paper-icon-button>
+          <paper-icon-button id="launch" icon="launch"></paper-icon-button>
+        </paper-tabs>
+      </div>
+    </div>
+  </template>
+  <script>
+    HTMLImports.whenReady(Polymer({
+      is: 'menu-bar-icons'
+    }));
+  </script>
+</dom-module>
+
 <dom-module id="selection-toolbar">
   <style>
     .tabs {
@@ -189,55 +238,6 @@
   <script>
     Polymer({
       is: 'reset-dialog'
-    });
-  </script>
-</dom-module>
-
-<dom-module id="menu-bar-icons">
-  <style>
-    :host {
-      height: 36px;
-    }
-    
-    .tabs {
-      background: #485D67;
-      top: inherit;
-    }
-
-    paper-tabs {
-      width: 100%;
-      height: 36px;
-      font-weight: 400;
-    }
-    
-    #edit-progress {
-      top: inherit;
-    }
-  </style>
-  <template>
-    <div class="layout horizontal flex">
-      <div id="toolbarLeftPanel" class="layout horizontal ">
-        <paper-tabs id="selector-tabs" class ="tabs relative flex" selected="0">
-          <paper-tab name="dart">Dart</paper-tab>
-          <paper-tab name="html">HTML</paper-tab>
-          <paper-tab name="css">CSS</paper-tab>
-        </paper-tabs>
-        <paper-progress id="edit-progress"  class="bottom fit" hidden></paper-progress>
-      </div>
-      <div id="toolbarRightPanel" class="layout horizontal flex">
-        <paper-tabs selected="0" class="tabs flex">
-          <span class="flex"></span>
-          <div class="center-center horizontal layout">HTML Output</div>
-          <span class="flex"></span>
-          <paper-icon-button id="refresh" icon="refresh"></paper-icon-button>
-          <paper-icon-button id="launch" icon="launch"></paper-icon-button>
-        </paper-tabs>
-      </div>
-    </div>
-  </template>
-  <script>
-    Polymer({
-      is: 'menu-bar-icons'
     });
   </script>
 </dom-module>

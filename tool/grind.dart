@@ -99,6 +99,31 @@ vulcanize(String filepath) {
   log('${HtmlFile.path} vulcanize: ${_printSize(HtmlFile)}');
 }
 
+vulcanizeHard(String filepath) {
+  FilePath HtmlFile = _buildDir.join('web', filepath);
+  log('${HtmlFile.path} original: ${_printSize(HtmlFile)}');
+  ProcessResult result = Process.runSync('vulcanize', [
+    '--strip-comments',
+    '--inline-css',
+    '--inline-scripts',
+    '--exclude',
+    'mobile.dart.js',
+    '--exclude',
+    'embed.dart.js',
+    '--exclude',
+    'main.dart.js',
+    '--exclude',
+    'packages/codemirror/codemirror.js',
+    filepath
+  ], workingDirectory: 'build/web');
+  if (result.exitCode != 0) {
+    fail('error running vulcanize: ${result.exitCode}\n${result.stderr}');
+  }
+  HtmlFile.asFile.writeAsStringSync(result.stdout);
+
+  log('${HtmlFile.path} vulcanize: ${_printSize(HtmlFile)}');
+}
+
 @Task()
 coverage() {
   if (!_env.containsKey('COVERAGE_TOKEN')) {
